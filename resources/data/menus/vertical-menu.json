@@ -1,0 +1,20 @@
+{
+  "menu": [
+    {
+      "url": "/",
+      "name": "Dashboard",
+      "i18n": "Dashboard",
+      "slug": "dashboard",
+      "icon": "desktop"
+    },
+    {
+      "navheader": "Employee"
+    },
+    {
+      "url": "users",
+      "name": "User",
+      "i18n": "User",
+      "icon": "users"
+    }
+  ]
+}
