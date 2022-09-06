@@ -23,9 +23,9 @@
             <div class="card-content">
               <div class="card-body">
                 <div class="d-flex flex-md-row flex-column justify-content-around">
-                  <a href="#" class="btn btn-social btn-google btn-block font-small-3 mr-md-1 mb-md-0 mb-1">
+                  <a href="auth/google" class="btn btn-social btn-google btn-block font-small-3 mr-md-1 mb-md-0 mb-1">
                     <i class="bx bxl-google font-medium-3"></i>
-                    <span class="pl-50 d-block text-center">Google</span>
+                    <span class="pl-50 d-block text-center">Googles</span>
                   </a>
                   <a href="#" class="btn btn-social btn-block mt-0 btn-facebook font-small-3">
                     <i class="bx bxl-facebook-square font-medium-3"></i>
