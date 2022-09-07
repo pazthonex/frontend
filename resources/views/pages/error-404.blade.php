@@ -11,7 +11,7 @@
         <div class="card-body text-center bg-transparent miscellaneous">
           <h1 class="error-title">Page Not Found :(</h1>
           <p class="pb-3">
-            we couldn't find the page you are looking for</p>
+            we couldn't find the page you are looking for {{ session('role') }}</p>
       <img class="img-fluid" src="{{asset('images/pages/404.png')}}" alt="404 error">
           <a href="{{asset('/')}}" class="btn btn-primary round glow mt-3">BACK TO HOME</a>
         </div>

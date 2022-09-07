@@ -8,6 +8,9 @@ class DashboardController extends Controller
 {
     //ecommerce
     public function dashboardEcommerce(){
+       if(session('role') == 8){
+         return view('pages.employee-dashboard');
+       }
         return view('pages.dashboard-ecommerce');
     }
     // analystic

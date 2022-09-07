@@ -84,80 +84,22 @@ class AuthenticationController extends Controller
       $user = Socialite::driver('google')->user(); 
       if($user){
         $email = $user->email;
-        $photo = $user->avatar;
-        $findemployee = Http::withToken(env('Auth_HRMIS_Token'))->post(env('APP_HRMIS_API') . "/api/auth/findemail", [  "email" => $email,   'photo' => $photo  ])->json();
-        if($findemployee['status'] == 200){
-          $role = $findemployee['data']['role'];
-          $campus = $findemployee['data']['campus'];
-          $name = $findemployee['data']['firstname'].' '.$findemployee['data']['lastname'];
-          $employee_id = $findemployee['data']['employee_id'];
-          $data = [
-            'role'=>$role,
-            'campus'=> $campus,
-            'name'=>$name,
-            'employee_id'=>$employee_id,
-          ];
-          $createToken = Http::post(env('APP_API'). "/api/createtoken",['data' => $data])->json();
-
-          if($createToken['status'] == 200){
-             session([
-              'token' => $createToken['message']['token'],
-               'name' => $createToken['message']['name'],
-           ]);
-           return redirect('/');
-          }
-          dd($createToken);
-        }else if($findemployee['status'] == 400){
-          $error = $findemployee['message'];
-          $pageConfigs = ['bodyCustomClass' => 'bg-full-screen-image'];
-          return view('pages.auth-login', ['pageConfigs' => $pageConfigs], compact('error'));
+        $login = Http::post(env('APP_API'). "/api/loginbygoogle",['email' => $email])->json();
+        if(!empty($login)){
+          if($login['status'] == 200){
+            session([
+              'token' => $login['data']['token'],
+              'name' => $login['data']['name'],
+              'role' => $login['data']['role'],
+              'photo' => $login['data']['photo'],
+            ]);
+            return redirect('/');
+         }
         }
-      
+        $pageConfigs = ['bodyCustomClass' => 'bg-full-screen-image'];
+        return view('pages.auth-login', ['pageConfigs' => $pageConfigs]);
 
       }
-
-      dd('NO user found');
-
-     
-
-     
-
-      //dd($response);
-    //   $findemployee = Http::withToken(env('Auth_Token'))->post($this->api . "/api/auth/findemail", [
-    //     "email" => $user->email,
-    //     'photo' => $user->avatar
-    //   ])->json();
-     
-    //   if ($findemployee['status'] == 400) {
-    //     $pageConfigs = ['bodyCustomClass' => 'bg-full-screen-image'];
-    //     $error = $findemployee['message'];
-    //     return view('auth.auth-login', compact('error'), ['pageConfigs' => $pageConfigs]);
-    //   } else if ($findemployee['status'] == 200) {
-    //   //  event(new AutoLogOut($findemployee['data']['employee_id']));
-    //     session([
-    //       'token' => $findemployee['data']['token'],
-    //       'firstname' => $findemployee['data']['firstname'],
-    //       'lastname' => $findemployee['data']['lastname'],
-    //       'role' => $findemployee['data']['role'],
-    //       'id' => $findemployee['data']['employee_id'],
-    //       'campus' => $findemployee['data']['campus'],
-    //       'sessionempid' => $findemployee['data']['employee_id'],
-    //       'photo' => $user->avatar,
-    //       'validator' => $findemployee['data']['validator'],
-    //       'isAuthorizedPersonel' => $findemployee['data']['is_authorized_personel'],
-    //       'isAuthorizedOfficial' => $findemployee['data']['is_authorized_official'],
-    //       'pat_id' =>  $findemployee['data']['patId'],
-    //     ]);
-    //     return redirect('/');
-    //   }
-    //    else {
-    //     $pageConfigs = ['bodyCustomClass' => 'bg-full-screen-image'];
-    //     $error = 'Server Error';
-    //     return view('auth.auth-login', ['pageConfigs' => $pageConfigs, 'error' => $error]);
-    //   }
-    // } catch (Exception $e) {
-    //   return redirect('auth/google');
-    // }
   }
 
 

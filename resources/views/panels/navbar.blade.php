@@ -81,7 +81,7 @@ data-bgcolor="@if(isset($configData['navbarBgColor'])){{$configData['navbarBgCol
                 </div>
                 <div class="d-flex justify-content-between cursor-pointer">
                   <div class="media d-flex align-items-center py-0">
-                    <div class="media-left pr-0"><img class="mr-1" src="{{asset('images/icon/sketch-mac-icon.png')}}" alt="avatar" height="39" width="39"></div>
+                    <div class="media-left pr-0"><img class="mr-1" src="{{ session('photo')}}" alt="avatar" height="39" width="39"></div>
                     <div class="media-body">
                       <h6 class="media-heading"><span class="text-bold-500">Updates Available</span></h6><small class="notification-text">Sketch 50.2 is currently newly added</small>
                     </div>
@@ -171,10 +171,10 @@ data-bgcolor="@if(isset($configData['navbarBgColor'])){{$configData['navbarBgCol
           <li class="dropdown dropdown-user nav-item">
             <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
               <div class="user-nav d-sm-flex d-none">
-                <span class="user-name">John Doe</span>
+                <span class="user-name">{{ session('name') }}</span>
                 <span class="user-status text-muted">Available</span>
               </div>
-              <span><img class="round" src="{{asset('images/portrait/small/avatar-s-11.jpg')}}" alt="avatar" height="40" width="40"></span>
+              <span><img class="round" src="{{ session('photo')?session('photo'):asset('images/icon/sketch-mac-icon.png') }}" alt="avatar" height="40" width="40"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right pb-0">
               <a class="dropdown-item" href="{{asset('page-user-profile')}}">
